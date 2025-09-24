@@ -3,26 +3,53 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+<<<<<<< HEAD
 
 # Production build
 dist/
 build/
 
 # Environment files
+=======
+pnpm-debug.log*
+
+# Production builds
+dist/
+build/
+out/
+
+# Environment variables
+>>>>>>> 2cc8ee442fc80ec777bee42d7c9179a4b7f74d6c
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
+<<<<<<< HEAD
 # IDE/Editor files
+=======
+# IDE and editor files
+>>>>>>> 2cc8ee442fc80ec777bee42d7c9179a4b7f74d6c
 .vscode/
 .idea/
 *.swp
 *.swo
+<<<<<<< HEAD
 
 # OS files
 .DS_Store
+=======
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+>>>>>>> 2cc8ee442fc80ec777bee42d7c9179a4b7f74d6c
 Thumbs.db
 
 # Logs
@@ -37,6 +64,13 @@ pids
 
 # Coverage directory used by tools like istanbul
 coverage/
+<<<<<<< HEAD
+=======
+*.lcov
+
+# nyc test coverage
+.nyc_output
+>>>>>>> 2cc8ee442fc80ec777bee42d7c9179a4b7f74d6c
 
 # Dependency directories
 jspm_packages/
@@ -47,6 +81,15 @@ jspm_packages/
 # Optional eslint cache
 .eslintcache
 
+<<<<<<< HEAD
+=======
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+>>>>>>> 2cc8ee442fc80ec777bee42d7c9179a4b7f74d6c
 # Optional REPL history
 .node_repl_history
 
@@ -54,4 +97,43 @@ jspm_packages/
 *.tgz
 
 # Yarn Integrity file
+<<<<<<< HEAD
 .yarn-integrity
+=======
+.yarn-integrity
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+
+# Nuxt.js build / generate output
+.nuxt
+
+# Gatsby files
+.cache/
+public
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# Temporary folders
+tmp/
+temp/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Local history
+.history/
+>>>>>>> 2cc8ee442fc80ec777bee42d7c9179a4b7f74d6c

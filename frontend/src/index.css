@@ -1,0 +1,25 @@
+/* Import the main Cybrty styles first */
+@import './styles/simplified.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add ripple animation */
+@keyframes ripple {
+  to {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+:root {
+  --cybrty-primary: #2563eb;
+  --cybrty-secondary: #1e40af;
+  --cybrty-accent: #3b82f6;
+  --cybrty-success: #10b981;
+  --cybrty-warning: #f59e0b;
+  --cybrty-danger: #ef4444;
+  --cybrty-dark: #1f2937;
+  --cybrty-light: #f3f4f6;
+}
