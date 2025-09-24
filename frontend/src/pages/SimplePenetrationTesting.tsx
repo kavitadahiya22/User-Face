@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+import PenTestPopup from '../components/pentest/PenTestPopup';
+import '../styles/pentest.css';
+import '../styles/pentest.css';
 
 const SimplePenetrationTesting: React.FC = () => {
   const [selectedModules, setSelectedModules] = useState<string[]>([]);
+  const [isPenTestPopupOpen, setIsPenTestPopupOpen] = useState(false);
 
   const handleModuleSelect = (moduleId: string) => {
     setSelectedModules(prev => {
@@ -53,20 +57,8 @@ const SimplePenetrationTesting: React.FC = () => {
   };
 
   const handleStartSelectedScans = () => {
-    if (selectedModules.length > 0) {
-      const moduleNames = selectedModules.map(moduleId => {
-        const module = pentestModules.find(m => m.id === moduleId);
-        return module ? module.title : moduleId;
-      }).join(', ');
-      
-      // In a real application, this would trigger the actual scans
-      alert(`🚀 Security Scan Initiated!\n\nSelected Modules:\n${moduleNames}\n\nScan configuration applied. You'll receive notifications as each module completes.\n\nEstimated completion time: 1-2 hours`);
-      
-      // Reset selections after starting scans
-      setSelectedModules([]);
-    } else {
-      alert('Please select at least one testing module before starting the scan.');
-    }
+    // Open the penetration test popup instead of the old alert
+    setIsPenTestPopupOpen(true);
   };
 
   const handleSelectAll = () => {
@@ -135,92 +127,35 @@ const SimplePenetrationTesting: React.FC = () => {
   ];
 
   return (
-    <div style={{ 
-      padding: '2rem 0',
-      fontFamily: 'system-ui, sans-serif'
-    }}>
+    <div className="pentest-container">
       {/* Header Section */}
-      <section style={{ marginBottom: '3rem', textAlign: 'center' }}>
-        <h1 style={{ 
-          fontSize: '2.5rem', 
-          fontWeight: 'bold', 
-          color: '#dc2626',
-          marginBottom: '1rem',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '1rem'
-        }}>
+      <section className="pentest-header">
+        <h1 className="pentest-title">
           🔒 <span>Penetration Testing Suite</span>
         </h1>
-        <p style={{ 
-          fontSize: '1.2rem', 
-          color: '#64748b',
-          maxWidth: '800px',
-          margin: '0 auto 2rem',
-          lineHeight: '1.6'
-        }}>
+        <p className="pentest-description">
           Select security testing modules below, then launch comprehensive scans with a single click. Our automated assessment platform provides detailed vulnerability analysis and compliance reporting.
         </p>
         
         {/* Status Bar with Selection Info */}
-        <div style={{
-          background: 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)',
-          color: 'white',
-          padding: '1rem 2rem',
-          borderRadius: '12px',
-          maxWidth: '800px',
-          margin: '0 auto 2rem',
-          boxShadow: '0 4px 12px rgba(220, 38, 38, 0.3)'
-        }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div>
-              <div style={{ fontSize: '0.875rem', opacity: 0.9 }}>System Status</div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>🟢 All Testing Modules Operational</div>
+        <div className="status-dashboard">
+          <div className="status-grid">
+            <div className="status-item">
+              <div className="status-label">System Status</div>
+              <div className="status-value">🟢 All Testing Modules Operational</div>
             </div>
-            <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: '0.875rem', opacity: 0.9 }}>Selected Modules</div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>{selectedModules.length} of {pentestModules.length}</div>
+            <div className="status-item-right">
+              <div className="status-label">Selected Modules</div>
+              <div className="status-value">{selectedModules.length} of {pentestModules.length}</div>
             </div>
           </div>
         </div>
 
         {/* Selection Controls */}
-        <div style={{
-          display: 'flex',
-          gap: '1rem',
-          justifyContent: 'center',
-          flexWrap: 'wrap',
-          marginBottom: '2rem'
-        }}>
+        <div className="selection-controls">
           <button
             onClick={handleSelectAll}
-            style={{
-              background: selectedModules.length === pentestModules.length ? '#dc2626' : 'white',
-              color: selectedModules.length === pentestModules.length ? 'white' : '#dc2626',
-              border: '2px solid #dc2626',
-              borderRadius: '8px',
-              padding: '0.875rem 1.5rem',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              fontSize: '0.875rem',
-              fontWeight: '600',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem'
-            }}
-            onMouseEnter={(e) => {
-              if (selectedModules.length !== pentestModules.length) {
-                e.currentTarget.style.background = '#dc2626';
-                e.currentTarget.style.color = 'white';
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (selectedModules.length !== pentestModules.length) {
-                e.currentTarget.style.background = 'white';
-                e.currentTarget.style.color = '#dc2626';
-              }
-            }}
+            className={`select-toggle-btn ${selectedModules.length === pentestModules.length ? 'selected' : ''}`}
           >
             {selectedModules.length === pentestModules.length ? (
               <>🔄 Deselect All</>
@@ -232,42 +167,11 @@ const SimplePenetrationTesting: React.FC = () => {
           <button
             onClick={handleStartSelectedScans}
             disabled={selectedModules.length === 0}
-            style={{
-              background: selectedModules.length > 0 ? 'linear-gradient(135deg, #059669 0%, #047857 100%)' : '#9ca3af',
-              color: 'white',
-              border: 'none',
-              borderRadius: '8px',
-              padding: '0.875rem 2rem',
-              cursor: selectedModules.length > 0 ? 'pointer' : 'not-allowed',
-              transition: 'all 0.3s ease',
-              fontSize: '0.875rem',
-              fontWeight: '600',
-              boxShadow: selectedModules.length > 0 ? '0 4px 12px rgba(5, 150, 105, 0.3)' : 'none',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem'
-            }}
-            onMouseEnter={(e) => {
-              if (selectedModules.length > 0) {
-                e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 6px 20px rgba(5, 150, 105, 0.4)';
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (selectedModules.length > 0) {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 4px 12px rgba(5, 150, 105, 0.3)';
-              }
-            }}
+            className="launch-scan-btn"
           >
             🚀 Launch Security Scan
             {selectedModules.length > 0 && (
-              <span style={{
-                background: 'rgba(255,255,255,0.2)',
-                padding: '0.25rem 0.5rem',
-                borderRadius: '12px',
-                fontSize: '0.75rem'
-              }}>
+              <span className="module-count-span">
                 {selectedModules.length}
               </span>
             )}
@@ -276,61 +180,18 @@ const SimplePenetrationTesting: React.FC = () => {
       </section>
 
       {/* Scan Configuration */}
-      <section style={{ marginBottom: '2rem' }}>
-        <div style={{
-          background: 'white',
-          borderRadius: '12px',
-          padding: '1.5rem',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-          border: '1px solid #e2e8f0',
-          maxWidth: '900px',
-          margin: '0 auto'
-        }}>
-          <h3 style={{
-            fontSize: '1.25rem',
-            fontWeight: 'bold',
-            color: '#1e293b',
-            marginBottom: '1rem',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem'
-          }}>
+      <section className="config-section">
+        <div className="config-container">
+          <h3 className="config-title">
             ⚙️ Scan Configuration
           </h3>
           
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-            gap: '1rem'
-          }}>
-            <div>
-              <label style={{
-                fontSize: '0.875rem',
-                fontWeight: '600',
-                color: '#374151',
-                marginBottom: '0.5rem',
-                display: 'block'
-              }}>
+          <div className="config-grid">
+            <div className="config-group">
+              <label className="config-label">
                 Scan Intensity
               </label>
-              <select style={{
-                width: '100%',
-                padding: '0.75rem',
-                border: '2px solid #e2e8f0',
-                borderRadius: '8px',
-                fontSize: '0.875rem',
-                background: 'white',
-                color: '#374151',
-                outline: 'none',
-                transition: 'all 0.3s ease',
-                cursor: 'pointer',
-                appearance: 'none',
-                backgroundImage: 'url("data:image/svg+xml;charset=US-ASCII,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 4 5\'><path fill=\'%23666\' d=\'M2 0L0 2h4zm0 5L0 3h4z\'/></svg>")',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'right 0.75rem center',
-                backgroundSize: '12px',
-                paddingRight: '2.5rem'
-              }} defaultValue="quick" onFocus={(e) => e.target.style.borderColor = '#3b82f6'} onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}>
+              <select className="config-select" defaultValue="quick">
                 <option value="quick">🔍 Quick Scan (15-30 min)</option>
                 <option value="standard">🔎 Standard Scan (1-2 hours)</option>
                 <option value="deep">🔬 Deep Scan (4-8 hours)</option>
@@ -797,6 +658,12 @@ const SimplePenetrationTesting: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Penetration Testing Popup */}
+      <PenTestPopup
+        isOpen={isPenTestPopupOpen}
+        onClose={() => setIsPenTestPopupOpen(false)}
+      />
     </div>
   );
 };
