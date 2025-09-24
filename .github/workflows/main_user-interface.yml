@@ -52,4 +52,4 @@ jobs:
           app-name: 'User-Interface'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5FBCFCBD26EC4989BE04CC5ED87AD368 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C9A6F28D3D154746AA708BA224DBB35A }}
